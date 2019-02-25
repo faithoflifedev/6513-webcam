@@ -1,0 +1,22 @@
+{
+  "name": "6513",
+  "version": "0.0.1",
+  "dependencies": {
+    "sass-bootstrap": "latest",
+    "modernizr": "latest",
+    "jquery": "latest",
+    "jquery-ui": "latest"
+  },
+  "private": true,
+  "description": "Robotics webcam app",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

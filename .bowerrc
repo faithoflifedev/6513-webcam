@@ -1,0 +1,10 @@
+{
+  "name": "6513",
+  "cwd": "~/6513/src/",
+  "directory": "public/bower_components",
+  "registry": {
+	"search": [
+		"https://registry.bower.io"
+	]
+  }
+}

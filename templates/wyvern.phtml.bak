@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta charset="utf-8" />
+
+		<title>Wyvern Robotics - Team 6513</title>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
+
+		<link rel="stylesheet" href="css/styles.css">
+
+		<style>
+			/* some styling could go here */
+		</style>
+
+		<script>
+			/* some config should be here */
+			var CONFIG = {
+				frameRate: 15,
+				cameras: {
+					cam0: 'http://<?php echo $server['SERVER_ADDR'] ?>/cameras/cam0.mjpeg',
+					cam1: 'http://<?php echo $server['SERVER_ADDR'] ?>/cameras/cam1.mjpeg'
+				},
+				/* cameras: {
+					cam0: 'http://192.168.1.162/oneplus',
+					cam1: 'http://192.168.1.162/oneplus',
+				} */
+			}
+		</script>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+		<!-- https://jariz.github.io/vibrant.js/ -->
+		<script src="js/vibrant.js"></script>
+
+		<script src="js/my.js"></script>
+	</head>
+	<body>
+		<div class="class="container-fluid"">
+			<!-- Content here -->
+		</div>
+
+<!--
+			<br/>
+		<table>
+			<tr> -->
+				<!-- TODO:  Loop through available and enabled cameras -->
+<!--				<td class="display">
+					<img 	id="cam0" src="http://<?php echo $server['SERVER_ADDR'] ?>/cameras/cam0.mjpeg" />
+					<video  id="vid0"></video>
+					<canvas id="canvas0"></canvas>
+				</td>
+				<td class="display">
+					<img 	id="cam1" src="http://<?php echo $server['SERVER_ADDR'] ?>/cameras/cam0.mjpeg" />
+					<video  id="vid1"></video>
+					<canvas id="canvas1"></canvas>
+				</td>
+			</tr>
+		</table>
+
+		<div class="ui">
+			<div class="controls">
+				<p>Click on the webcam feed to pick a color, then adjust tolerance.</p>
+
+				<div>
+					<label for="tolerance">Tolerance:</label>
+					<input id="tolerance" type="range" value="10" max="255" min="0" step="1">
+				</div>
+ 			</div>
+
+ 			<div id="color"></div>
+		</div>
+-->
+		<!-- <img id="test" src="http://<?php echo $server['SERVER_ADDR'] ?>/cameras/cam0.mjpeg" style="display:none" onload="console.log( 'loaded' )" /> -->
+	</body>
+</html>
