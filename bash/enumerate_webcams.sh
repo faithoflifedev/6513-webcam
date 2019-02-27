@@ -33,4 +33,8 @@ do
 
 done <<< $list
 
+if [ -z "${cameras}" ]; then
+	cameras="\"Dummy WebCam\",/dev/dummy"
+fi
+
 echo ${cameras}

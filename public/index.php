@@ -32,11 +32,44 @@ $app->get(
     '/cams',
     function( Request $request, Response $response, array $args )
     {
-	$csv = shell_exec( 'bash ../bash/enumerate_webcams.sh' );
+        $csv = shell_exec( 'bash ../bash/enumerate_webcams.sh' );
 
-	return $response->withJson( 
-		json_encode( Util::csv_to_assoc( $csv ) )
-	);
+        return $response->withJson( 
+            Util::csv_to_assoc( $csv )
+        );
+    }
+);
+
+$app->get(
+    '/serve/{cams}',
+    function( Request $request, Response $response, array $args )
+    {
+        $cams = $args['cams'];
+
+        $contents = Util::createConfig( $cams );
+
+        file_put_contents( 'ffserver.conf', $contents );
+
+        $command = "ffserver -f ffserver.conf";
+
+        $result = Util::shell( $command );
+
+        return $response->withJson( 
+                array(
+                    'result' => $result,
+                    'success' => true
+                )
+        );
+    }
+);
+
+$app->get(
+    '/cmd/{cmd}',
+    function( Request $request, Response $response, array $args )
+    {
+        $cmd = $args['cmd'];
+
+        $response->getBody()->write( '<pre>' . shell_exec( $cmd ) . '</pre>' );
     }
 );
 

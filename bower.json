@@ -5,7 +5,11 @@
     "sass-bootstrap": "latest",
     "modernizr": "latest",
     "jquery": "latest",
-    "jquery-ui": "latest"
+    "jquery-ui": "latest",
+    "jsrender": "latest",
+    "load-awesome": "latest",
+    "components-font-awesome": "^5.4.2",
+    "tooltip.js": "https://unpkg.com/tooltip.js"
   },
   "private": true,
   "description": "Robotics webcam app",
