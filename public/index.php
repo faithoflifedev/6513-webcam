@@ -52,7 +52,7 @@ $app->get(
 
         $command = "ffserver -f ffserver.conf";
 
-        $result = Util::shell( $command );
+        $result = shell_exec( $command );
 
         return $response->withJson( 
                 array(

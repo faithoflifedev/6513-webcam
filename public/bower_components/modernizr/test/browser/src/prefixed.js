@@ -14,7 +14,7 @@ describe('prefixed', function() {
       context: Math.random().toString().slice(2),
       baseUrl: '../src',
       paths: {
-        sinon: '../test/js/lib/sinon',
+        sinon: '../node_modules/sinon/pkg/sinon',
         cleanup: '../test/cleanup'
       }
     });
@@ -37,7 +37,6 @@ describe('prefixed', function() {
     define('testPropsAll', [], function() {return testPropsAll;});
     define('cssToDOM', [], function() {return cssToDOM;});
     define('atRule', [], function() {return atRule;});
-
 
     req(['prefixed'], function(_prefixed) {
       prefixed = _prefixed;

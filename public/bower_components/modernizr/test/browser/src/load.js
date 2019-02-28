@@ -1,14 +1,13 @@
 describe('load', function() {
   /*
-    eslint no-unused-vars: [ "error", {
+    eslint no-unused-vars: ["error", {
       "varsIgnorePattern": "load"
     }]
-   */
+  */
   var ModernizrProto;
   var cleanup;
   var sinon;
   var load;
-
 
   before(function(done) {
 
@@ -18,7 +17,7 @@ describe('load', function() {
       context: Math.random().toString().slice(2),
       baseUrl: '../src',
       paths: {
-        sinon: '../test/js/lib/sinon',
+        sinon: '../node_modules/sinon/pkg/sinon',
         cleanup: '../test/cleanup'
       }
     });
@@ -35,7 +34,6 @@ describe('load', function() {
   it('creates a reference on `ModernizrProto`', function() {
     expect(ModernizrProto.load).to.be.a('function');
   });
-
 
   if (window.console && console.error) {
     describe('errors', function() {
@@ -106,7 +104,7 @@ describe('load', function() {
       afterEach(function() {
         yepnope = undefined;
         // ie <= 8 doesn't support deleting window properties,
-        //  so we fallback to setting it to undefiend
+        //  so we fallback to setting it to undefined
         try {
           delete window.yepnope;
         } catch (e) {

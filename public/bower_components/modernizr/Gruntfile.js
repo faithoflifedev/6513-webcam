@@ -1,5 +1,3 @@
-/*global module */
-
 var browsers = require('./test/browser/sauce-browsers.json');
 var serveStatic = require('serve-static');
 
@@ -16,12 +14,17 @@ module.exports = function(grunt) {
     '!test/browser/integration/*.js'
   ]);
 
+  var integrationTests = grunt.file.expand([
+    'test/browser/integration/*.js'
+  ]);
+
+  var nodeTests = grunt.file.expand([
+    'test/universal/**/*.js',
+    'test/node/**/*.js'
+  ]);
+
   grunt.initConfig({
     env: {
-      nodeTests: [
-        'test/universal/**/*.js',
-        'test/node/**/*.js'
-      ],
       browserTests: browserTests,
       coverage: {
         APP_DIR_FOR_CODE_COVERAGE: 'test/coverage/instrument',
@@ -29,7 +32,9 @@ module.exports = function(grunt) {
           'http://localhost:9999/test/unit.html',
           'http://localhost:9999/test/index.html'
         ]
-      }
+      },
+      integrationTests: integrationTests,
+      nodeTests: nodeTests
     },
     generate: {
       dest: './dist/modernizr-build.js'
@@ -52,23 +57,19 @@ module.exports = function(grunt) {
     },
     eslint: {
       target: [
-        '<%= env.nodeTests%>',
+        '<%= env.nodeTests %>',
         '<%= env.browserTests %>',
+        '<%= env.integrationTests %>',
         'test/browser/setup.js',
-        'test/browser/integration/*.js',
         'Gruntfile.js',
         'src/*.js',
         'lib/*.js',
         'test/**/*.js',
         'feature-detects/**/*.js',
+        '!src/html5shiv.js',
         '!src/html5printshiv.js',
-        '!test/coverage/**/*.js',
-        '!test/js/lib/**/*.js',
-        '!src/html5shiv.js'
-      ],
-      options: {
-        rulePaths: ['test/eslint/rules']
-      }
+        '!test/coverage/**/*.js'
+      ]
     },
     clean: {
       dist: [
@@ -78,12 +79,12 @@ module.exports = function(grunt) {
         'gh-pages'
       ]
     },
-    jade: {
+    pug: {
       compile: {
         options: {
           data: {
             unitTests: browserTests,
-            integrationTests: grunt.file.expand(['test/browser/integration/*.js'])
+            integrationTests: integrationTests
           }
         },
         files: {
@@ -94,6 +95,12 @@ module.exports = function(grunt) {
       }
     },
     connect: {
+      browser: {
+        options: {
+          port: 9090,
+          keepalive: true
+        }
+      },
       server: {
         options: {
           middleware: function() {
@@ -103,7 +110,7 @@ module.exports = function(grunt) {
                 var ua = req.headers['user-agent'];
 
                 // record code coverage results from browsers
-                if (req.url == '/coverage/client' && req.method == 'POST') {
+                if (req.url === '/coverage/client' && req.method === 'POST') {
                   var name = encodeURI(ua.replace(/\//g, '-'));
                   var body = '';
 
@@ -148,8 +155,8 @@ module.exports = function(grunt) {
         options: {
           urls: '<%= env.coverage.urls %>',
           log: true
-        },
-      },
+        }
+      }
     },
     // `mocha` runs browser tests, `mochaTest` runs node tests
     mochaTest: {
@@ -158,7 +165,7 @@ module.exports = function(grunt) {
           reporter: 'dot',
           timeout: 5000
         },
-        src: ['<%= env.nodeTests%>']
+        src: ['<%= env.nodeTests %>']
       }
     },
     instrument: {
@@ -207,13 +214,23 @@ module.exports = function(grunt) {
 
   grunt.registerTask('nodeTests', ['mochaTest']);
 
-  grunt.registerTask('browserTests', ['connect', 'mocha']);
+  grunt.registerTask('browserTests', ['connect:server', 'mocha']);
+
+  grunt.registerTask('browserResults', ['test', 'connect:browser']);
 
   grunt.registerTask('build', ['clean', 'generate']);
 
+  /**
+   * Performs the code coverage tasks provided by Istanbul
+   */
+  grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest', 'storeCoverage', 'makeReport']);
+
+  /**
+   * Default task for creating a modernizr build using lib/config-all.json
+   */
   grunt.registerTask('default', ['eslint', 'build']);
 
-  var tests = ['clean', 'eslint', 'jade', 'instrument', 'env:coverage', 'nodeTests'];
+  var tests = ['clean', 'eslint', 'pug', 'instrument', 'env:coverage', 'nodeTests'];
 
   if (process.env.APPVEYOR) {
     grunt.registerTask('test', tests);

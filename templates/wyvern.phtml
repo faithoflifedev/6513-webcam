@@ -3,8 +3,16 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta charset="utf-8" />
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
 
 		<title>Wyvern Robotics - Team 6513</title>
+
+		<link rel="apple-touch-icon" sizes="76x76" href="images/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+		<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+
 
 		<link rel="stylesheet" href="bower_components/components-font-awesome/css/fontawesome-all.min.css" />
 		<!-- <link rel="stylesheet" href="bower_components/jquery-ui/themes/cupertino/jquery-ui.min.css" /> -->
@@ -46,9 +54,9 @@
 
 		<script id="vidCanvas" type="text/x-jsrender">
 		<div class="vidCanvas row">
-			<div class="col-md-6">
-				<div class="card mb-6 box-shadow">
-					<p class="lead">Drop a camera here.</p>
+			<div class="col-md-3">
+				<div class="card mb-3 box-shadow">
+					<p class="lead">{{:element}}</p>
 				</div>
 			</div>
 		</div>
@@ -72,12 +80,12 @@
 				<div class="row">
 					<div class="button_remote col-md-6">
 						<button type="button" class="btn btn-sm btn-outline-secondary">
-							<i class="fas fa-video"></i> pi
+							<i class="fas fa-video"></i>
 						</button>
 					</div>
 					<div class="button_local col-md-6">
 						<button type="button" class="btn btn-sm btn-outline-secondary">
-							<i class="fas fa-video"></i> browser
+							<i class="fas fa-video"></i>
 						</button>
 					</div>
 				</div>				
@@ -88,9 +96,9 @@
 
   <div class="album py-5 bg-light">
 		<div class="container">
-			<div class="vidCanvas row">
-				<div class="col-md-6">
-					<div class="card mb-6 box-shadow">
+			<div data-type="empty" class="vidCanvas row">
+				<div class="col-md-3">
+					<div class="card mb-3 box-shadow">
 						<p class="lead">Drop a camera here.</p>
 					</div>
 				</div>
@@ -98,6 +106,7 @@
 		</div>
 	</div>
 </main>
+
 
 </body>
 </html>

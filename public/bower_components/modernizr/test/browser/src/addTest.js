@@ -13,8 +13,8 @@ describe('addTest', function() {
       context: Math.random().toString().slice(2),
       baseUrl: '../src',
       paths: {
-        cleanup: '../test/cleanup',
-        sinon: '../test/js/lib/sinon'
+        sinon: '../node_modules/sinon/pkg/sinon',
+        cleanup: '../test/cleanup'
       }
     });
 
@@ -86,7 +86,6 @@ describe('addTest', function() {
       ModernizrProto.on('fakeDetect', fakeDetect);
       expect(ModernizrProto._l.fakeDetect.length).to.be(2);
     });
-
 
     it('triggers results if the detect already ran', function(done) {
       Modernizr.fakeDetect = 'fake';
@@ -178,7 +177,7 @@ describe('addTest', function() {
       expect(setClasses.calledWith(['no-fakedetect'])).to.be(true);
     });
 
-    it('sets a negative class for a falsey value', function() {
+    it('sets a negative class for a falsy value', function() {
       addTest('fakedetect', function() {return undefined;});
       expect(setClasses.callCount).to.be(1);
       expect(setClasses.calledWith(['no-fakedetect'])).to.be(true);

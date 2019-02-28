@@ -1,7 +1,7 @@
-// this file configures require.js based on enviroment
+// this file configures require.js based on environment
 'use strict';
 
-var inBrowser = typeof define == 'function' && typeof define.amd == 'object';
+var inBrowser = typeof define === 'function' && typeof define.amd === 'object';
 
 var _extend = function(a, b) {
   for (var prop in b) {
@@ -27,7 +27,7 @@ var baseRequireConfig = {
     end: '})(window, document);'
   },
   onBuildWrite: function(id, path, contents) {
-    if (this.optimize === 'uglify2') {
+    if (this.optimize === 'uglify') {
       // strip out documentation comments
       contents = contents.replace(/\/\*\![\s\S]*\!\*\//m, '');
     }
@@ -68,8 +68,8 @@ function build(generate, generateBanner, pkg) {
 
     if (config.minify) {
       banner = generateBanner('compact', config);
-      requireConfig.optimize = 'uglify2';
-      requireConfig.uglify2 = {
+      requireConfig.optimize = 'uglify';
+      requireConfig.uglify = {
         mangle: {
           except: ['Modernizr']
         },
@@ -82,6 +82,10 @@ function build(generate, generateBanner, pkg) {
       requireConfig.optimize = 'none';
     }
 
+    if(config.scriptGlobalName) {
+      requireConfig.wrap.end = '})(' + config.scriptGlobalName + ', document);';
+    }
+
     requireConfig.out = function(output) {
       output = banner + output;
 
@@ -91,11 +95,15 @@ function build(generate, generateBanner, pkg) {
 
       // Hack the prefix into place. Anything is way too big for something so small.
       if (config && config.classPrefix) {
-        output = output.replace(/(classPrefix'?\s?:\s?)['""']{2}(,)/, '$1"' + config.classPrefix.replace(/"/g, '\\"') + '"$2');
+        output = output.replace(/(classPrefix'?:\s?)['"]{2}(,)/, '$1\'' + config.classPrefix.replace(/'/g, '\\\'') + '\'$2');
       }
+      ['enableClasses', 'enableJSClass', 'usePrefixes'].forEach(function(configName) {
+        if (config && typeof config[configName] === 'boolean') {
+          output = output.replace(new RegExp('(' + configName + '\\\'?\\s?:\\s?)(true|false)([,\\n])'), '$1' + Boolean(config[configName]) + '$3');
+        }
+      });
 
       cb(output);
-
     };
 
     requirejs.optimize(requireConfig);

@@ -39,7 +39,35 @@ const page = {
 			);
 		}
 
-		
+		$( 'div.vidCanvas' ).on(
+			'dragover',
+			function( event ) {
+				event.preventDefault();
+
+				console.log( 'dover' );
+			}
+		)
+
+		$( 'div.vidCanvas' ).on(
+			'drop',
+			function( event ) {
+				event.preventDefault();
+
+				let tmpl = $.templates( '#vidCanvas' );
+
+				let $container = $( this ).parent();
+
+				let vid_count = $container.children().length; 
+				console.log( vid_count );
+
+				if ( $( this ).attr( 'data-type' ) == 'empty' )
+				{
+					$container.prepend( 
+						tmpl.render({ element: '<img class="snow" src="/cameras/snow.mjpeg" />' })
+					); 
+				}
+			}
+		);
 
 
 

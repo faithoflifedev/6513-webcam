@@ -1,8 +1,8 @@
 /*!
 {
-  "name" : "HTML5 Audio Element",
+  "name": "HTML5 Audio Element",
   "property": "audio",
-  "tags" : ["html5", "audio", "media"]
+  "tags": ["html5", "audio", "media"]
 }
 !*/
 /* DOC
@@ -27,7 +27,7 @@ define(['Modernizr', 'createElement'], function(Modernizr, createElement) {
     var bool = false;
 
     try {
-      bool = !!elem.canPlayType
+      bool = !!elem.canPlayType;
       if (bool) {
         bool      = new Boolean(bool);
         bool.ogg  = elem.canPlayType('audio/ogg; codecs="vorbis"') .replace(/^no$/, '');
@@ -42,7 +42,7 @@ define(['Modernizr', 'createElement'], function(Modernizr, createElement) {
         bool.m4a  = (elem.canPlayType('audio/x-m4a;')            ||
                      elem.canPlayType('audio/aac;'))             .replace(/^no$/, '');
       }
-    } catch (e) { }
+    } catch (e) {}
 
     return bool;
   });

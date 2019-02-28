@@ -70,7 +70,7 @@ describe('cli/build', function() {
 
       build(config, function(file) {
         var parsedConfig = file.match(configRE);
-        //use eval becuase the minified code creates non valid JSON.
+        //use eval because the minified code creates non valid JSON.
         // eslint-disable-next-line
         parsedConfig = eval('(' + parsedConfig[1].replace(/'/g, '"') + ')');
         expect(parsedConfig.classPrefix).to.be(prefix);
@@ -109,6 +109,31 @@ describe('cli/build', function() {
 
       it('replaces __VERSION__ ', function() {
         expect(output).to.not.contain('__VERSION__');
+      });
+
+    });
+
+    describe('scriptGlobalName', function() {
+      
+      it('should inject modernizr onto window by default', function(done) {
+        var config = {
+          'feature-detects': ['css/boxsizing']
+        };
+        build(config, function(file) {
+          expect(file).to.contain('})(window, document);');
+          done();
+        });
+      });
+
+      it('should inject modernizr onto custom window global when specified', function(done) {
+        var config = {
+          'scriptGlobalName': 'window.awesomeco',
+          'feature-detects': ['css/boxsizing']
+        };
+        build(config, function(file) {
+          expect(file).to.contain('})(window.awesomeco, document);');
+          done();
+        });
       });
 
     });

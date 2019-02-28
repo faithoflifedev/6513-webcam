@@ -131,11 +131,10 @@ function metadata(cb) {
     });
   });
 
-  if (cb && typeof cb == 'function') {
+  if (cb && typeof cb === 'function') {
     return cb(tests);
   }
   return tests;
 }
-
 
 module.exports = metadata;

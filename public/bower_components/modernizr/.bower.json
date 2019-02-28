@@ -1,12 +1,12 @@
 {
   "name": "modernizr",
   "homepage": "https://github.com/Modernizr/Modernizr",
-  "version": "3.6.0",
-  "_release": "3.6.0",
+  "version": "3.7.0",
+  "_release": "3.7.0",
   "_resolution": {
     "type": "version",
-    "tag": "v3.6.0",
-    "commit": "9120b2214dcbbe200192c76f07582e7f5543110f"
+    "tag": "v3.7.0",
+    "commit": "7da8cdbf35f7657582a127501c21a4fcadaa2a65"
   },
   "_source": "https://github.com/Modernizr/Modernizr.git",
   "_target": "*",
